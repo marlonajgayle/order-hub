@@ -3,7 +3,8 @@
     "allow": [
       "Bash(ls \"C:\\\\Users\\\\Marlon\\\\source\\\\repos\\\\order-hub\\\\OrderHub\\\\OrderHub.Api\")",
       "Bash(git add *)",
-      "PowerShell(git -C \"C:\\\\Users\\\\Marlon\\\\source\\\\repos\\\\order-hub\\\\.claude\\\\worktrees\\\\nifty-panini-6dc2b1\" remote -v)"
+      "PowerShell(git -C \"C:\\\\Users\\\\Marlon\\\\source\\\\repos\\\\order-hub\\\\.claude\\\\worktrees\\\\nifty-panini-6dc2b1\" remote -v)",
+      "Bash(dotnet build 2)"
     ]
   }
 }
