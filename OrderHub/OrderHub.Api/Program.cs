@@ -1,4 +1,5 @@
 using OrderHub.Api.Features.Products.CreateProduct;
+using OrderHub.Api.Features.Products.DeleteProduct;
 using OrderHub.Api.Features.Products.ListProducts;
 using OrderHub.Api.Infrastructure.Persistence;
 
@@ -20,6 +21,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapCreateProduct();
+app.MapDeleteProduct();
 app.MapListProducts();
 
 var summaries = new[]
