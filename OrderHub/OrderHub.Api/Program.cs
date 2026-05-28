@@ -1,4 +1,5 @@
 using OrderHub.Api.Features.Products.CreateProduct;
+using OrderHub.Api.Features.Products.ListProducts;
 using OrderHub.Api.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapCreateProduct();
+app.MapListProducts();
 
 var summaries = new[]
 {
