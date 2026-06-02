@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddSingleton<IProductStore, InMemoryProductStore>();
+builder.Services.AddSingleton<IOrderStore, InMemoryOrderStore>();
 
 var app = builder.Build();
 
