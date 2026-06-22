@@ -8,6 +8,20 @@ public class InMemoryProductStore : IProductStore
 
     public IEnumerable<Product> GetAll() => _products;
 
+    public IEnumerable<string> GetCategories() =>
+        _products
+            .Select(p => p.Category)
+            .Where(c => !string.IsNullOrWhiteSpace(c))
+            .Select(c => c!)
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(c => c, StringComparer.OrdinalIgnoreCase);
+
+    public IEnumerable<Product> GetByCategory(string category)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(category);
+        return _products.Where(p => string.Equals(p.Category, category, StringComparison.OrdinalIgnoreCase));
+    }
+
     public void Add(Product product) => _products.Add(product);
 
     public bool Remove(Guid id)
