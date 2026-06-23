@@ -2,7 +2,7 @@ using OrderHub.Api.Infrastructure.Persistence;
 
 namespace OrderHub.Api.Features.Products.EditProduct;
 
-public record EditProductRequest(string? Name, string? Description);
+public record EditProductRequest(string? Name, string? Description, decimal Price);
 
 public static class EditProductEndpoint
 {
@@ -13,7 +13,10 @@ public static class EditProductEndpoint
             if (string.IsNullOrWhiteSpace(request.Name))
                 return Results.BadRequest();
 
-            var updated = store.Update(id, request.Name, request.Description ?? string.Empty);
+            if (request.Price <= 0)
+                return Results.BadRequest();
+
+            var updated = store.Update(id, request.Name, request.Description ?? string.Empty, request.Price);
             return updated is null ? Results.NotFound() : Results.Ok(updated);
         });
 
