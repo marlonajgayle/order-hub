@@ -9,5 +9,5 @@ public interface IProductStore
     IEnumerable<Product> GetByCategory(string category);
     void Add(Product product);
     bool Remove(Guid id);
-    Product? Update(Guid id, string name, string description);
+    Product? Update(Guid id, string name, string description, decimal price);
 }

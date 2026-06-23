@@ -3,7 +3,7 @@ using OrderHub.Api.Infrastructure.Persistence;
 
 namespace OrderHub.Api.Features.Products.CreateProduct;
 
-public record CreateProductRequest(string? Name);
+public record CreateProductRequest(string? Name, decimal? Price);
 
 public static class CreateProductEndpoint
 {
@@ -14,10 +14,14 @@ public static class CreateProductEndpoint
             if (string.IsNullOrWhiteSpace(request.Name))
                 return Results.BadRequest();
 
+            if (request.Price is null || request.Price <= 0)
+                return Results.BadRequest();
+
             var product = new Product
             {
                 Id = Guid.NewGuid(),
-                Name = request.Name
+                Name = request.Name,
+                Price = request.Price.Value
             };
 
             store.Add(product);
