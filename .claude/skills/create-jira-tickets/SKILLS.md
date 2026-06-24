@@ -59,12 +59,16 @@ The spec uses friendly names; the Atlassian tools use API names. Here's the mapp
 
 If a project rejects an issue type, priority name, or custom field, call `Atlassian:getJiraProjectIssueTypesMetadata` (or `getJiraIssueTypeMetaWithFields`) and retry with what the project actually accepts. Don't keep retrying the same payload — read the error first.
 
+## Description formatting
+
+Always pass `contentFormat: "markdown"` on every `createJiraIssue` and `editJiraIssue` call that includes a `description`. Without it the Jira API defaults to ADF and may store literal `\n` escape sequences instead of real newlines, breaking markdown rendering in the UI.
+
 ## Create the parent ticket
 
 | Field | Value |
 |-------|-------|
 | Title | The spec's `# Feature Name` heading text |
-| Description | The spec's `## Why` and `## What` sections, concatenated, followed by a line: `Spec: <relative-path-to-spec-file>` |
+| Description | The spec's `## Why` and `## What` sections, concatenated, followed by a line: `Spec: <relative-path-to-spec-file>`. Pass with `contentFormat: "markdown"` (see Description formatting). |
 | Type | `Story` for Simple/Standard, `Epic` for Complex |
 | Priority | Infer from the spec's Constraints section: Must Have → "High" (or equivalent), Should Have → "Medium", Could Have → "Low". Default "Medium" if unstated. |
 | Labels | `["aiauthored"]` |
@@ -80,7 +84,7 @@ For each task heading `### T<N>: <noun phrase>` in the spec:
 | Field | Value |
 |-------|-------|
 | Title | `T<N>: <noun phrase>` exactly as written in the spec |
-| Description | The task's **Do**, **Files**, and **Verify** fields verbatim, each under its own bold subhead |
+| Description | The task's **Do**, **Files**, and **Verify** fields verbatim, each under its own bold subhead. Pass with `contentFormat: "markdown"` (see Description formatting). |
 | Type | `Sub-task` (Standard) or `Story` (Complex) |
 | Parent link | `parent: "<parent-key>"` for Sub-tasks; Epic Link custom field for Stories under an Epic |
 | Priority | Inherit from parent unless the spec explicitly differs for that task |
